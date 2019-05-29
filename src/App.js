@@ -1,25 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Navbar from './components/layout/Navbar'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { createGlobalStyle } from 'styled-components';
+import ProjectDetails from './components/projects/ProjectDetails';
+import MainPage from './components/layout/MainPage';
+
+const GlobalStyle = createGlobalStyle`
+  *, *::before, *::after {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <GlobalStyle />
+        <Navbar />
+        <Switch>
+          <Route exact path='/' component={MainPage} />
+          <Route path='/project/:id' component={ProjectDetails} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
