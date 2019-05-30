@@ -9,7 +9,7 @@ import { Wrapper, Title } from '../layout/Theme'
 class ProjectList extends Component {
     render() {
         const { projects } = this.props;
-        console.log(this.props)
+        console.log(projects)
         return (
             <Wrapper id="projects">
                 <Title>Projekty</Title>
@@ -28,7 +28,7 @@ class ProjectList extends Component {
 const mapStateToProps = (state) => {
     console.log(state)
     return {
-        projects: state.project.projects
+        projects: state.firestore.ordered.projects
     }
 }
 

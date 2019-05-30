@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import bgImage from '../../img/drawable-hdpi/doris-background.png'
 
+
 export const Header = styled.header`
     background: url(${bgImage}) no-repeat center center fixed;
     background-size: cover;
@@ -32,3 +33,18 @@ export const Paragraph = styled.p`
 export const Bold = styled.span`
     font-weight:bold;
     `;
+export const Button = styled.button`
+    font-family: 'Georgia';
+    font-weight: bold;
+    color: #2C2C2C;
+    width: 150px;
+    margin: 20px 0;
+    padding: 8px;
+    border-radius: 18px;
+    background-color: #D98B30;
+    border: none;
+    `
+export const BackButton = styled(Button)`
+    background-color: transparent;
+    margin: 0;
+`

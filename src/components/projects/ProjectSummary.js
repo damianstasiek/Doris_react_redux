@@ -31,10 +31,12 @@ const CategoryTitle = styled.h4`
     `
 
 const ProjectSummary = ({ project }) => {
+    const image = project.gallery.filter(item => item.headerImage === true).map(item => item.image)
     console.log(project)
     return (
         <ProjectItem>
-            <Image src={project.img} alt="" />
+
+            <Image src={project && image} alt="" />
             <Container>
                 <ProjectTitle>{project.title}</ProjectTitle>
                 <CategoryTitle>category</CategoryTitle>

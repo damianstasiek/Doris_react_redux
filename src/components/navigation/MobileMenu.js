@@ -5,7 +5,6 @@ import logo from '../../img/drawable-hdpi/logo_szerokie.png'
 import fb from '../../img/facebook.svg'
 import tw from '../../img/twitter.svg'
 import posed from 'react-pose';
-
 import Hamburger from './Hamburger'
 
 const NavigationWrapper = styled.div`
@@ -75,29 +74,25 @@ class MobileMenu extends Component {
         this.myRef = React.createRef()
     }
 
-
     handleMenuToggle = () => {
-        console.log('click')
         this.setState({
-            isMenuOpen: !this.state.isMenuOpen,
+            isMenuOpen: !this.state.isMenuOpen
         });
     }
     handleScroolTo = (name) => {
-        console.log('scroll')
         this.setState({
             isMenuOpen: false
         })
-        const element = document.getElementById(name)
-        element.scrollIntoView()
-        // window.setTimeout(() => { window.scrollTo(0, 1000) }, 210)
-
+        const element = document.getElementById(name);
+        element.scrollIntoView();
     }
 
     render() {
+        console.log(this.props)
         const { isMenuOpen } = this.state;
         return (
             <NavigationWrapper>
-                <Link to="#"><Logo src={logo}></Logo></Link>
+                <Link to="/"><Logo src={logo}></Logo></Link>
                 <StyledMenuWrapper pose={isMenuOpen ? 'open' : 'closed'}>
                     <MenuList>
                         <StyledNavItem onClick={() => this.handleScroolTo('about')}>O nas</StyledNavItem>
