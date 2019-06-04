@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SectionTitle, Wrapper, Paragraph } from './Theme'
+import { SectionTitle, Wrapper, Paragraph } from '../../styles/Theme'
 
 
 const ContactWrapp = styled.div`

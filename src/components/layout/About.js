@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper, SectionTitle, Paragraph, Bold } from './Theme'
+import { Wrapper, SectionTitle, Paragraph, Bold } from '../../styles/Theme'
 
 const About = (props) => {
     return (

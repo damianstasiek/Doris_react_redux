@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Wrapper } from '../layout/Theme'
+import { Wrapper } from '../../styles/Theme'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import bgImage from '../../img/drawable-hdpi/doris-background.png'
+import bgImage from '../img/drawable-hdpi/doris-background.png'
 
 
 export const Header = styled.header`

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
-import { Wrapper, Title } from '../layout/Theme'
+import { Wrapper, Title } from '../../styles/Theme'
 
 class ProjectList extends Component {
     render() {
