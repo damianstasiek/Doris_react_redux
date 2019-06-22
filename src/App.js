@@ -27,7 +27,6 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <GlobalStyle />
-        {/* <Navbar /> */}
         <Switch>
           <ScrollToTop>
             <Route exact path='/' component={MainPage} />

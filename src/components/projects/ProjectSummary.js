@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import { device } from '../../styles/Device'
+// import { Wrapper, SectionTitle, ProjectWrapper } from '../../styles/Theme'
 
 
 const ProjectItem = styled.div`
     position: relative;
     padding: 20px 0;
+    @media ${device.laptop} {
+        margin: 20px;
+    }
     `
 const Container = styled.div`
     position: absolute;
@@ -19,6 +24,7 @@ const Container = styled.div`
 const Image = styled.img`
     width: 100%;
     border-radius: 12px;
+
     `
 const ProjectTitle = styled.h3`
     margin: 0;
@@ -35,7 +41,6 @@ const ProjectSummary = ({ project }) => {
     console.log(project)
     return (
         <ProjectItem>
-
             <Image src={project && image} alt="" />
             <Container>
                 <ProjectTitle>{project.title}</ProjectTitle>

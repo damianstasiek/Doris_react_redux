@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import logo from '../../img/drawable-hdpi/logo_szerokie.png'
-import fb from '../../img/facebook.svg'
-import tw from '../../img/twitter.svg'
+import logo2 from '../../img/logo@2x.png'
+// import fb from '../../img/facebook.svg'
+// import tw from '../../img/twitter.svg'
 import posed from 'react-pose';
 import Hamburger from './Hamburger'
 import { Header } from '../../styles/Theme'
@@ -11,7 +12,7 @@ import { size } from '../../styles/Device'
 import { device } from '../../styles/Device'
 
 const NavigationWrapper = styled.div`
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     padding: 20px;
@@ -23,7 +24,7 @@ const NavigationWrapper = styled.div`
     overflow: hidden;
 
     @media ${device.laptop} {
-    padding: 20px 60px;
+    padding: 0 20px;
     }
 `
 const MenuWrapper = posed.nav(
@@ -56,11 +57,11 @@ const StyledMenuWrapper = styled(MenuWrapper)`
     @media ${device.laptop} {
     flex-direction: row;
     justify-content: flex-end;
-    margin-right: 50px;
+    /* margin-right: 50px; */
     height: 100px;
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+    background: transparent;
+    color: white;
   }
 
     `
@@ -71,17 +72,20 @@ const Logo = styled.img`
     width: 230px;
     height: auto;
     z-index: 99;
+
+
+    @media ${device.laptop} {
+    width: 70px;
+    }
     `
 const MenuList = styled.ul`
     margin: 0;
     padding: 0;
-
     @media ${device.laptop} {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     width: 60%;
-
   }
     `
 const NavItem = posed.li(
@@ -97,20 +101,26 @@ const NavItem = posed.li(
 const StyledNavItem = styled(NavItem)`
     list-style: none;
     margin-bottom: 40px;
-    padding: 0 22px;
+    &:hover {
+        color: #D98B30;
+        cursor: pointer;
+    }
 
     @media ${device.laptop} {
         margin-bottom: 0;
+        padding: 0 22px;
     }
     `
 const SocialWrapper = styled.div`
     display: flex;
     justify-content: center;
-    margin-right: 60px;
     `
 const SocialLink = styled.span`
     display: block;
     padding: 20px 12px;
+    &:hover {
+        color: #fff;
+    }
 `
 const HeaderTtile = styled.h1`
     position: absolute;
@@ -119,18 +129,52 @@ const HeaderTtile = styled.h1`
     color: white;
     font-size: 4em;
     `
+const Icon = styled.i`
+        font-size: 30px;
+        color: black;
+
+    &:hover {
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+    `
+const ArrowIcon = styled(Icon)`
+    display: none;
+    @media ${device.laptop} {
+        display: block;
+        position: fixed;
+        bottom: 50px;
+        left: 50%;
+    }
+    `
 class MobileMenu extends Component {
     constructor(props) {
         super(props)
         this.state = {
             isMenuOpen: false,
-            isLaptop: false
+            isLaptop: false,
+            isChangeMenu: false,
         }
         this.myRef = React.createRef()
     }
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
+        window.addEventListener('scroll', this.handleChangeMenu)
+        window.addEventListener('scroll', this.handleUpdateArrow)
+    }
+    handleUpdateArrow = () => {
+        let headerHeight = 0;
+        const header = document.getElementById('header');
+        if (header) {
+            headerHeight = document.getElementById('header').offsetHeight
+        }
+        const ArrowIcon = document.getElementById('arrow');
+        if (headerHeight < window.scrollY) {
+            return ArrowIcon ? ArrowIcon.style.display = "block" : null
+        } else {
+            return ArrowIcon ? ArrowIcon.style.display = "none" : null
+        }
     }
 
     handleMenuToggle = () => {
@@ -150,7 +194,6 @@ class MobileMenu extends Component {
         element.scrollIntoView();
     }
     updateWindowDimensions = () => {
-        console.log(window.innerWidth)
         if (window.innerWidth >= size.laptop) {
             this.setState({ isLaptop: true, isMenuOpen: true });
         } else {
@@ -158,17 +201,17 @@ class MobileMenu extends Component {
         }
     }
 
+
     render() {
         console.log(size.laptop)
         console.log(this.props)
         const { isMenuOpen, isLaptop } = this.state;
-        console.log(isLaptop)
-        console.log(isMenuOpen)
+        console.log(this.state.isArrow)
         return (
-            <Header>
+            <Header id="header">
                 {isLaptop ? <HeaderTtile>Doris Design Service</HeaderTtile> : null}
                 <NavigationWrapper>
-                    <LogoLink to="/"><Logo src={logo}></Logo></LogoLink>
+                    <LogoLink to="/"><Logo src={isLaptop ? logo2 : logo}></Logo></LogoLink>
                     <StyledMenuWrapper pose={isMenuOpen ? 'open' : 'closed'}>
                         <MenuList>
                             <StyledNavItem onClick={() => this.handleScroolTo('about')}>O nas</StyledNavItem>
@@ -176,13 +219,14 @@ class MobileMenu extends Component {
                             <StyledNavItem onClick={() => this.handleScroolTo('contact')}>Kontkat</StyledNavItem>
                         </MenuList>
                         <SocialWrapper>
-                            <SocialLink><Link to="/"><img src={fb} alt="facebook"></img></Link></SocialLink>
-                            <SocialLink><Link to="/"><img src={tw} alt="twitter"></img></Link></SocialLink>
+                            <SocialLink><Link to="/"><Icon className="fab fa-facebook-square"></Icon></Link></SocialLink>
+                            <SocialLink><Link to="/"><Icon className="fab fa-twitter"></Icon></Link></SocialLink>
                         </SocialWrapper >
                     </StyledMenuWrapper >
                     <Hamburger onClick={this.handleMenuToggle} isMenuOpen={isMenuOpen} />
+                    <ArrowIcon onClick={() => this.handleScroolTo('header')} id="arrow" className="fas fa-arrow-circle-up"></ArrowIcon>
                 </NavigationWrapper>
-            </Header>
+            </Header >
         )
     }
 }
