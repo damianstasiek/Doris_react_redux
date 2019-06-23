@@ -1,45 +1,33 @@
-<p>PHP</p>
-
 <?php
+include_once('classes/sendmail.php');
+include_once('config.php');
 header("Access-Control-Allow-Origin: *");
 $rest_json = file_get_contents("php://input");
 $_POST = json_decode($rest_json, true);
-
-if (empty($_POST['firstName']) && empty($_POST['email'])) die();
-
-if ($_POST)
-	{
-
-	// set response code - 200 OK
-
-	http_response_code(200);
-	$subject = $_POST['firstName'];
-	$to = "damianstasiek@gmail.com";
-	$from = $_POST['email'];
-
-	// data
-
-	$msg = $_POST['number'] . $_POST['message'];
-
-	// Headers
-
-	$headers = "MIME-Version: 1.0\r\n";
-	$headers.= "Content-type: text/html; charset=UTF-8\r\n";
-	$headers.= "From: <" . $from . ">";
-	mail($to, $subject, $msg, $headers);
-
-	// echo json_encode( $_POST );
-
-	echojson_encode(array(
-		"sent" => true
-	));
-	}
-  else
-	{
-
-	// tell the user about error
-
-	echojson_encode(["sent" => false, "message" => "Something went wrong"]);
-	}
-
-?>
+if( empty($_POST['firstName']) && empty($_POST['email']) ) {
+    echo json_encode(
+        [
+           "sent" => false,
+           "message" => $SendMailEmptyerrorMessage
+        ]
+    ); 
+    exit();
+}
+if ($_POST){
+    //@important: Please change this before using
+    http_response_code(200);
+    $subject = 'Contact from: ' . $_POST['firstName'];
+    $from = $_POST['email'];
+    $message = $_POST['msg'];       
+    //Actual sending email
+    $sendEmail = new Sender($adminEmail, $from, $subject, $message);
+    $sendEmail->send();
+} else {
+ // tell the user about error
+ echo json_encode(
+     [
+        "sent" => false,
+        "message" => $SendMailFailederrorMessage
+     ]
+ );
+}

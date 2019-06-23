@@ -41,7 +41,6 @@ const ParameterTitle = styled.h4`
 const InfoTitle = styled.p`
     font-size: .7em;
     font-weight: bold;
-    /* text-align: center; */
     `
 const Paragraph = styled.p`
     color: #2C2C2C;
@@ -56,19 +55,25 @@ const ProjectImg = styled.img`
     margin: 10px 0;
     border-radius: 34px;
     `
-// const Header = styled.div`
-//     height: 50vh;
-//     width: 100%;
-//     background: url(${props => props.project ? props.project.gallery.filter(item => item.headerImage === true).map(item => item.image) : 'brak'});
-//     `
+// const ProjectHeader = styled.div`
+//         background-size: cover;
+//         background-repeat: no-repeat;
+//         background-attachment: fixed;
+//         background-position: center;
+//         background: url(${props => props.project ? props.project.gallery.filter(item => item.headerImage === true).map(item => item.image) : 'brak'});
+// `
 class ProjectDetails extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            bgImage: ''
+        }
+    }
     componentDidUpdate() {
         window.scrollTo(0, 0);
     }
     render() {
         const { project } = this.props;
-        console.log(project)
-        console.log(this.props.project)
         if (project) {
             return (
                 <Wrapper>
@@ -111,10 +116,8 @@ class ProjectDetails extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps)
     const id = ownProps.match.params.id;
     const projects = state.firestore.data.projects
-    console.log(projects)
     const project = projects ? projects[id] : null;
     return {
         project: project
@@ -126,5 +129,4 @@ export default compose(
     firestoreConnect([
         { collection: 'projects' }
     ])
-)
-    (ProjectDetails);
+)(ProjectDetails);

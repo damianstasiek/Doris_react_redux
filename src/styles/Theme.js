@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import bgImage from '../img/drawable-hdpi/doris-background.png'
-import { size } from '../styles/Device'
 import { device } from '../styles/Device'
 
 
@@ -10,15 +9,18 @@ export const Header = styled.header`
     height: 100%;
     min-height: 100vh;
     `
+export const ProjectHeader = styled.div`
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    `
 export const SectionTitle = styled.h2`
     font-size: 2.2em;
     color: #D98B30;
-    /* border-bottom: 1px solid #2C2C2C; */
     @media ${device.laptop} {
     width: 200px;  
-    /* margin-bottom: 50px; */
-    }
-    `;
+    }`
 export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -26,7 +28,6 @@ export const Wrapper = styled.div`
     min-height: 100vh;
     @media ${device.laptop} {
     padding: 100px 200px; 
-    /* margin-bottom: 50px;  */
     min-height: auto;
     }`;
 export const ProjectListWrapper = styled(Wrapper)`
@@ -72,7 +73,6 @@ export const Center = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* padding: 80px 0; */
 `
 export const LogoAbout = styled.img`
     width: 200px;

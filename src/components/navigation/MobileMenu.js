@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import logo from '../../img/drawable-hdpi/logo_szerokie.png'
 import logo2 from '../../img/logo@2x.png'
-// import fb from '../../img/facebook.svg'
-// import tw from '../../img/twitter.svg'
 import posed from 'react-pose';
 import Hamburger from './Hamburger'
 import { Header } from '../../styles/Theme'
@@ -57,7 +55,6 @@ const StyledMenuWrapper = styled(MenuWrapper)`
     @media ${device.laptop} {
     flex-direction: row;
     justify-content: flex-end;
-    /* margin-right: 50px; */
     height: 100px;
     position: relative;
     background: transparent;
@@ -109,6 +106,9 @@ const StyledNavItem = styled(NavItem)`
     @media ${device.laptop} {
         margin-bottom: 0;
         padding: 0 22px;
+        &:hover {
+            transform: scale(1.2);
+        }
     }
     `
 const SocialWrapper = styled.div`
@@ -130,9 +130,8 @@ const HeaderTtile = styled.h1`
     font-size: 4em;
     `
 const Icon = styled.i`
-        font-size: 30px;
-        color: black;
-
+    font-size: 30px;
+    color: #fff;
     &:hover {
         transform: scale(1.2);
         cursor: pointer;
@@ -145,6 +144,7 @@ const ArrowIcon = styled(Icon)`
         position: fixed;
         bottom: 50px;
         left: 50%;
+        color: black;
     }
     `
 class MobileMenu extends Component {
@@ -170,7 +170,7 @@ class MobileMenu extends Component {
             headerHeight = document.getElementById('header').offsetHeight
         }
         const ArrowIcon = document.getElementById('arrow');
-        if (headerHeight < window.scrollY) {
+        if (headerHeight - 100 <= window.scrollY) {
             return ArrowIcon ? ArrowIcon.style.display = "block" : null
         } else {
             return ArrowIcon ? ArrowIcon.style.display = "none" : null
@@ -203,15 +203,12 @@ class MobileMenu extends Component {
 
 
     render() {
-        console.log(size.laptop)
-        console.log(this.props)
         const { isMenuOpen, isLaptop } = this.state;
-        console.log(this.state.isArrow)
         return (
             <Header id="header">
                 {isLaptop ? <HeaderTtile>Doris Design Service</HeaderTtile> : null}
                 <NavigationWrapper>
-                    <LogoLink to="/"><Logo src={isLaptop ? logo2 : logo}></Logo></LogoLink>
+                    <LogoLink to="/"><Logo src={isLaptop ? logo2 : logo} alt="logo"></Logo></LogoLink>
                     <StyledMenuWrapper pose={isMenuOpen ? 'open' : 'closed'}>
                         <MenuList>
                             <StyledNavItem onClick={() => this.handleScroolTo('about')}>O nas</StyledNavItem>
@@ -219,8 +216,10 @@ class MobileMenu extends Component {
                             <StyledNavItem onClick={() => this.handleScroolTo('contact')}>Kontkat</StyledNavItem>
                         </MenuList>
                         <SocialWrapper>
-                            <SocialLink><Link to="/"><Icon className="fab fa-facebook-square"></Icon></Link></SocialLink>
-                            <SocialLink><Link to="/"><Icon className="fab fa-twitter"></Icon></Link></SocialLink>
+                            <SocialLink><a href="https://www.facebook.com/dorisdesignservices/" target="
+                            _blank" ><Icon className="fab fa-facebook-square"></Icon></a></SocialLink>
+                            <SocialLink><a href="https://www.instagram.com/dorisdesignservices/" target="
+                            _blank"><Icon className="fab fa-instagram"></Icon></a></SocialLink>
                         </SocialWrapper >
                     </StyledMenuWrapper >
                     <Hamburger onClick={this.handleMenuToggle} isMenuOpen={isMenuOpen} />

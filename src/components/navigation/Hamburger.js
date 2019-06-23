@@ -50,7 +50,6 @@ const StyledHamburger = styled.div`
 `;
 
 const Hamburger = (props) => {
-  console.log(props)
   return (
     < StyledHamburger {...props}>
       <div />

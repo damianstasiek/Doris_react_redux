@@ -1,6 +1,5 @@
 import React from 'react';
 import { Wrapper, SectionTitle, Paragraph, Bold, Center, LogoAbout } from '../../styles/Theme'
-import { size } from '../../styles/Device'
 import LogoFull from '../../img/logo_fullx2.png'
 
 const About = (props) => {

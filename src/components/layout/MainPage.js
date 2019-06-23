@@ -5,7 +5,6 @@ import Contact from './Contact';
 import MobileMenu from '../navigation/MobileMenu'
 
 const MainPage = (props) => {
-    console.log(props)
     return (
         <>
             <MobileMenu />

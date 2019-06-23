@@ -2,14 +2,15 @@ import React from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { device } from '../../styles/Device'
-// import { Wrapper, SectionTitle, ProjectWrapper } from '../../styles/Theme'
-
 
 const ProjectItem = styled.div`
     position: relative;
     padding: 20px 0;
     @media ${device.laptop} {
         margin: 20px;
+    &:hover {
+        transform: scale(1.1);
+    }
     }
     `
 const Container = styled.div`
@@ -29,7 +30,6 @@ const Image = styled.img`
 const ProjectTitle = styled.h3`
     margin: 0;
     font-size: 1.5em;
-    /* color: #fff; */
     `
 const CategoryTitle = styled.h4`
     margin: 0;
@@ -38,7 +38,6 @@ const CategoryTitle = styled.h4`
 
 const ProjectSummary = ({ project }) => {
     const image = project.gallery.filter(item => item.headerImage === true).map(item => item.image)
-    console.log(project)
     return (
         <ProjectItem>
             <Image src={project && image} alt="" />

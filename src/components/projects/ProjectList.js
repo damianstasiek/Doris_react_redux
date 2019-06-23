@@ -9,7 +9,6 @@ import { ProjectListWrapper, SectionTitle, ProjectWrapper } from '../../styles/T
 class ProjectList extends Component {
     render() {
         const { projects } = this.props;
-        console.log(projects)
         return (
             <ProjectListWrapper id="projects">
                 <SectionTitle>Projekty</SectionTitle>
@@ -28,7 +27,6 @@ class ProjectList extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
         projects: state.firestore.ordered.projects
     }

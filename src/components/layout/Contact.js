@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { SectionTitle, Wrapper, Paragraph } from '../../styles/Theme'
+import { SectionTitle, Wrapper } from '../../styles/Theme'
 import { device } from '../../styles/Device'
 import axios from 'axios';
 
-const API_PATH = 'http://localhost:3000/doris_react_redux/api/contact/index.php';
+const API_PATH = 'http://www.dorisdesignservices.pl/api/contact/index.php';
 
 const ContactWrapp = styled.div`
     display: flex;
@@ -56,7 +56,6 @@ const Input = styled.input`
     :focus {
         outline: 0;
         border-bottom: 1px solid #D98B30;
-        font-size: .9em;
     }
     @media ${device.laptop} {
         font-size: 1.1em
@@ -72,10 +71,9 @@ const Textarea = styled.textarea`
     :focus {
         outline: 0;
         border-bottom: 1px solid #D98B30;
-        font-size: .9em;
     }
     @media ${device.laptop} {
-        font-size: 1.1em
+        font-size: 1.1em;
         height: 150px;
     }
     `
@@ -89,6 +87,10 @@ const Button = styled.button`
     border-radius: 18px;
     background-color: #D98B30;
     border: none;
+    &:hover {
+        transform: scale(1.1);
+        color: #fff;
+    }
     `
 const ParagraphContact = styled.p`
     color: #717171;
@@ -98,13 +100,28 @@ const ParagraphContact = styled.p`
     margin: 8px 0;
     }
     `
+const ErrorMsg = styled.div`
+    color: red;
+    padding: 4px 0;
+    `
+const SuccessMsg = styled(ErrorMsg)`
+    color: green;
+    `
+const Email = styled.a`
+    text-decoration: none;
+    color: black;
+    &:hover {
+        color: #d98b30;
+    }
+`
 class Contact extends Component {
     state = {
-        firstName: '',
-        lastName: '',
+        name: '',
         email: '',
         phone: '',
         message: '',
+        nameError: '',
+        emailError: '',
         error: null,
         emailSent: false
     }
@@ -116,23 +133,60 @@ class Contact extends Component {
         })
     }
     handleSubmit = e => {
-        e.preventDefault()
-        axios({
-            method: 'post',
-            url: `${API_PATH}`,
-            headers: { 'contnt-type': 'application/json' },
-            data: this.state
-        })
-            .then(result => {
-                this.setState({
-                    mailSent: result.data.sent
-                })
+        e.preventDefault();
+        const isValid = this.validate();
+        if (isValid) {
+            axios({
+                method: "post",
+                url: `${API_PATH}`,
+                headers: { "content-type": "application/json" },
+                data: this.state
             })
-            .catch(error => this.setState({ error: error.message }))
+                .then(result => {
+                    if (result.data.sent) {
+                        this.setState({
+                            emailSent: result.data.sent
+                        });
+                        this.setState({
+                            error: false
+                        });
+                        this.setState({
+                            name: '',
+                            email: '',
+                            phone: '',
+                            message: '',
+                            nameError: '',
+                            emailError: '',
+                            error: null,
+                        })
+                    } else {
+                        this.setState({ error: true });
+                    }
+                })
+                .catch(error => this.setState({ error: error.message }));
+        }
+    }
+
+    validate = () => {
+        let nameError = '';
+        let emailError = '';
+
+        if (!this.state.name) {
+            nameError = "Proszę podaj imię"
+        }
+
+        if (!this.state.email.includes('@')) {
+            emailError = "Niepoprawny adres email"
+        }
+        if (emailError || nameError) {
+            this.setState({ emailError, nameError })
+            return false;
+        }
+
+        return true
     }
     render() {
-        const { firstName, lastName, email, phone, message } = this.state;
-        console.log(this.state)
+        const { name, email, phone, message, emailSent, nameError, emailError, phoneError } = this.state;
         return (
             <Wrapper id="contact">
                 <SectionTitle>Kontakt</SectionTitle>
@@ -140,25 +194,29 @@ class Contact extends Component {
                     <ContactWrapp>
                         <Name>Dorota</Name>
                         <ParagraphContact>604-703-690</ParagraphContact>
-                        <ParagraphContact>biuro@dorisdesignservices.pl</ParagraphContact>
+                        <ParagraphContact><Email href="mailto:biuro@dorisdesignservices.pl">biuro@dorisdesignservices.pl</Email></ParagraphContact>
                     </ContactWrapp>
                     <ContactWrapp>
                         <Name>Wiola</Name>
                         <ParagraphContact>508-070-617</ParagraphContact>
-                        <ParagraphContact>wiola@dorisdesignservices.pl</ParagraphContact>
+                        <ParagraphContact><Email href="mailto:wiola@dorisdesignservices.pl">wiola@dorisdesignservices.pl</Email></ParagraphContact>
                     </ContactWrapp>
                 </ContactInfoWrapper>
-                <FormContainer>
+                {/* <FormContainer>
                     <FormTitle>Napisz do nas</FormTitle>
                     <Form action="#">
-                        <Input type="text" name="firstName" placeholder="Imię" value={firstName} onChange={(e) => this.handleInputChange(e)}></Input>
-                        <Input type="text" name="lastName" placeholder="Nazwisko" value={lastName} onChange={(e) => this.handleInputChange(e)}></Input>
+                        <Input type="text" name="name" placeholder="Imię" value={name} required onChange={(e) => this.handleInputChange(e)}></Input>
+                        <ErrorMsg>{nameError}</ErrorMsg>
                         <Input type="email" name="email" placeholder="Adres email" value={email} onChange={(e) => this.handleInputChange(e)}></Input>
+                        <ErrorMsg>{emailError}</ErrorMsg>
                         <Input type="phone" name="phone" placeholder="Telefon" value={phone} onChange={(e) => this.handleInputChange(e)}></Input>
+                        <ErrorMsg>{phoneError}</ErrorMsg>
                         <Textarea placeholder="Twoja wiadomość" name="message" value={message} onChange={(e) => this.handleInputChange(e)}></Textarea>
                         <Button type="submit" onClick={e => this.handleSubmit(e)}>Wyślij</Button>
+                        {emailSent ? <SuccessMsg>Wiadomość wysłana</SuccessMsg> : null}
+                        {emailError && <ErrorMsg>Wiadomość nie została wysłana</ErrorMsg>}
                     </Form>
-                </FormContainer>
+                </FormContainer> */}
 
             </Wrapper>
         );
