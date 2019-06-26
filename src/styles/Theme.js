@@ -77,6 +77,55 @@ export const Center = styled.div`
 export const LogoAbout = styled.img`
     width: 200px;
 `
+export const Logo = styled.img`
+    width: 230px;
+    height: auto;
+    z-index: 10;
+    @media ${device.laptop} {
+    width: 70px;
+    z-index: auto;
+    }`
+
+export const SocialLink = styled.span`
+    display: block;
+    padding: 20px 12px;
+    &:hover {
+        color: #fff;
+    }
+`
+export const Icon = styled.i`
+    font-size: 30px;
+    color: #fff;
+    &:hover {
+        transform: scale(1.2);
+        cursor: pointer;
+    }`
+export const MenuList = styled.ul`
+    margin: 0;
+    padding: 0;
+    @media ${device.laptop} {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 60%;
+    }
+`
+export const StyledNavItem = styled.li`
+    list-style: none;
+    margin-bottom: 40px;
+    &:hover {
+        color: #D98B30;
+        cursor: pointer;
+    }
+
+    @media ${device.laptop} {
+        margin-bottom: 0;
+        padding: 0 22px;
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+    `
 export const ProjectWrapper = styled.div`
     display: flex;
     justify-content: space-around;

@@ -5,9 +5,10 @@ import logo from '../../img/drawable-hdpi/logo_szerokie.png'
 import logo2 from '../../img/logo@2x.png'
 import posed from 'react-pose';
 import Hamburger from './Hamburger'
-import { Header } from '../../styles/Theme'
+import { Header, Logo, SocialLink, Icon, MenuList } from '../../styles/Theme'
 import { size } from '../../styles/Device'
 import { device } from '../../styles/Device'
+import CookieConsent from "react-cookie-consent";
 
 const NavigationWrapper = styled.div`
     position: relative;
@@ -65,26 +66,7 @@ const StyledMenuWrapper = styled(MenuWrapper)`
 const LogoLink = styled(Link)`
     z-index: 999;
 `
-const Logo = styled.img`
-    width: 230px;
-    height: auto;
-    z-index: 99;
 
-
-    @media ${device.laptop} {
-    width: 70px;
-    }
-    `
-const MenuList = styled.ul`
-    margin: 0;
-    padding: 0;
-    @media ${device.laptop} {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 60%;
-  }
-    `
 const NavItem = posed.li(
     props => props.isLaptop ?
         {
@@ -115,13 +97,7 @@ const SocialWrapper = styled.div`
     display: flex;
     justify-content: center;
     `
-const SocialLink = styled.span`
-    display: block;
-    padding: 20px 12px;
-    &:hover {
-        color: #fff;
-    }
-`
+
 const HeaderTtile = styled.h1`
     position: absolute;
     top: 45%;
@@ -129,22 +105,15 @@ const HeaderTtile = styled.h1`
     color: white;
     font-size: 4em;
     `
-const Icon = styled.i`
-    font-size: 30px;
-    color: #fff;
-    &:hover {
-        transform: scale(1.2);
-        cursor: pointer;
-    }
-    `
 const ArrowIcon = styled(Icon)`
     display: none;
     @media ${device.laptop} {
-        display: block;
+        display: none;
         position: fixed;
-        bottom: 50px;
+        bottom: 100px;
         left: 50%;
         color: black;
+        z-index: 999;
     }
     `
 class MobileMenu extends Component {
@@ -225,6 +194,10 @@ class MobileMenu extends Component {
                     <Hamburger onClick={this.handleMenuToggle} isMenuOpen={isMenuOpen} />
                     <ArrowIcon onClick={() => this.handleScroolTo('header')} id="arrow" className="fas fa-arrow-circle-up"></ArrowIcon>
                 </NavigationWrapper>
+                <CookieConsent
+                buttonText="Zgoda"
+                buttonStyle={{ backgroundColor: "#D98B30", fontSize: "13px" }}
+                >Ta strona korzysta z ciasteczek aby świadczy usługi na najwyższym poziomie. Dalsze korzystanie ze strony oznacza, że zgadzasz się na ich użycie</CookieConsent>
             </Header >
         )
     }

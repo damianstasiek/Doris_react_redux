@@ -81,7 +81,7 @@ class ProjectDetails extends Component {
                         <Title>{project.title}</Title>
                         <CategoryTitle>{project.category}</CategoryTitle>
                     </Container>
-                    <ParametersWrap>
+                    {/* <ParametersWrap>
                         <Parameter>
                             <ParameterTitle>Powierzchnia</ParameterTitle>
                             <InfoTitle>13m^2</InfoTitle>
@@ -94,7 +94,7 @@ class ProjectDetails extends Component {
                             <ParameterTitle>Lokalizacja</ParameterTitle>
                             <InfoTitle>Kraków</InfoTitle>
                         </Parameter>
-                    </ParametersWrap>
+                    </ParametersWrap> */}
                     <Paragraph>{project.description}</Paragraph>
                     <Gallery>
                         {project && project.gallery.map(image => {
