@@ -11,10 +11,10 @@ class Sender
     public $message;
     public $headers;
     public $error = [];
-    public function __construct($sendTo, $sendFrom = "kontakt@dorsi-test.cba.pl", $subject, $message)
+    public function __construct($sendTo, $sendFrom = "", $subject, $message)
     {
         $this->sendTo = $sendTo;
-        $this->sendFrom = ($sendFrom) ? $sendFrom : 'kontakt@dorsi-test.cba.pl';
+        $this->sendFrom = ($sendFrom) ? $sendFrom : 'biuro@dorisdesignservices.pl';
         $this->subject = $subject;
         $this->message = $message;
     }

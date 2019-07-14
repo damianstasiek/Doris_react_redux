@@ -19,7 +19,7 @@ export const SectionTitle = styled.h2`
     font-size: 2.2em;
     color: #D98B30;
     @media ${device.laptop} {
-    width: 200px;  
+    width: 100%  
     }`
 export const Wrapper = styled.div`
     display: flex;

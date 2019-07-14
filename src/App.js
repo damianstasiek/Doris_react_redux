@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 import ProjectDetails from './components/projects/ProjectDetails';
 import MainPage from './components/layout/MainPage';
 import ScrollToTop from './components/navigation/ScrollToTop'
+import PrivacyPolicy from './components/layout/PrivacyPolicy'
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
@@ -31,6 +32,7 @@ function App() {
           <ScrollToTop>
             <Route exact path='/' component={MainPage} />
             <Route path='/project/:id' component={ProjectDetails} />
+            <Route path='/politykaprywatnosci' component={PrivacyPolicy} />
           </ScrollToTop>
         </Switch>
       </div>

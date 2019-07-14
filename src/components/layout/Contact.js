@@ -4,7 +4,7 @@ import { SectionTitle, Wrapper } from '../../styles/Theme'
 import { device } from '../../styles/Device'
 import axios from 'axios';
 
-const API_PATH = 'http://www.dorisdesignservices.pl/api/contact/index.php';
+const API_PATH = 'https://www.dorisdesignservices.pl/api/contact/index.php';
 
 const ContactWrapp = styled.div`
     display: flex;

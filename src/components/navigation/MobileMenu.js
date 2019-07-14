@@ -36,6 +36,7 @@ const MenuWrapper = posed.nav(
             closed: { x: '-100%', delay: 200 }
         });
 const StyledMenuWrapper = styled(MenuWrapper)`
+    overflow-y: hidden;
     margin: 0;
     padding: 0;
     background-color: #fff;
@@ -51,7 +52,6 @@ const StyledMenuWrapper = styled(MenuWrapper)`
     height: 100vh;
     justify-content: center;
     background: #fff;
-    overflow-y: hidden;
     
     @media ${device.laptop} {
     flex-direction: row;
@@ -110,10 +110,11 @@ const ArrowIcon = styled(Icon)`
     @media ${device.laptop} {
         display: none;
         position: fixed;
-        bottom: 100px;
-        left: 50%;
+        bottom: 210px;
+        left: 95%;
         color: black;
         z-index: 999;
+        font-size: 3em
     }
     `
 class MobileMenu extends Component {
@@ -151,6 +152,7 @@ class MobileMenu extends Component {
             this.setState({
                 isMenuOpen: !this.state.isMenuOpen
             });
+            document.body.style.overflow = "hidden"
         }
     }
     handleScroolTo = (name) => {
@@ -158,6 +160,7 @@ class MobileMenu extends Component {
             this.setState({
                 isMenuOpen: false
             })
+            document.body.style.overflow = "auto"
         }
         const element = document.getElementById(name);
         element.scrollIntoView();

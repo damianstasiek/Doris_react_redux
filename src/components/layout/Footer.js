@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Logo, SocialLink, Icon, MenuList, StyledNavItem } from '../../styles/Theme'
 import logo2 from '../../img/logo@2x.png'
 import { device } from '../../styles/Device'
+import { Link } from 'react-router-dom'
 
 const FooterWrap = styled.footer`
     display: inline-grid;
@@ -48,6 +49,7 @@ const WrapperSocial = styled(Wrapper)`
 const Copyright = styled.p`
     font-size: 0.9em;
     color: #fff;
+    margin: 0;
   
 `
 const FooterMenuTitile = styled.h3`
@@ -56,6 +58,7 @@ const FooterMenuTitile = styled.h3`
 const FooterMenuList = styled(MenuList)`
     width: 100%;
     color: #fff;
+    padding: 8px 0;
     @media ${device.laptop} {
     flex-direction: row;
     flex-wrap: wrap;
@@ -71,17 +74,27 @@ const FooterStyledNavItem = styled(StyledNavItem)`
         margin: 6px 12px;
     }
     `
+const LinkTo = styled(Link)`
+    text-decoration: none;
+    color: #fff;
+    &:hover {
+        color: #D98B30;
+    }
+`
+   const handleScroolTo = (name) => {
+        const element = document.getElementById(name);
+        element.scrollIntoView();
+    }
 const Footer = () => {
     return (
         <FooterWrap>
             <Wrapper>
                 <FooterMenuTitile>Menu</FooterMenuTitile>
                 <FooterMenuList>
-                            <FooterStyledNavItem onClick={() => this.handleScroolTo('about')}>O nas</FooterStyledNavItem>
-                            <FooterStyledNavItem onClick={() => this.handleScroolTo('projects')}>Projekty</FooterStyledNavItem>
-                            <FooterStyledNavItem onClick={() => this.handleScroolTo('contact')}>Kontkat</FooterStyledNavItem>
-                            <FooterStyledNavItem onClick={() => this.handleScroolTo('contact')}>Polityka prywatności</FooterStyledNavItem>
-                            <FooterStyledNavItem onClick={() => this.handleScroolTo('contact')}>Polityka cookie</FooterStyledNavItem>
+                            <FooterStyledNavItem onClick={() => handleScroolTo('about')}>O nas</FooterStyledNavItem>
+                            <FooterStyledNavItem onClick={() => handleScroolTo('projects')}>Projekty</FooterStyledNavItem>
+                            <FooterStyledNavItem onClick={() => handleScroolTo('contact')}>Kontkat</FooterStyledNavItem>
+                            <FooterStyledNavItem><LinkTo to="/politykaprywatnosci">Polityka prywatności</LinkTo></FooterStyledNavItem>
                         </FooterMenuList>
             </Wrapper>
             <WrapperCopyright>

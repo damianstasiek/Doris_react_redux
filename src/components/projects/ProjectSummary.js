@@ -43,7 +43,7 @@ const ProjectSummary = ({ project }) => {
             <Image src={project && image} alt="" />
             <Container>
                 <ProjectTitle>{project.title}</ProjectTitle>
-                <CategoryTitle>category</CategoryTitle>
+                {/* <CategoryTitle>category</CategoryTitle> */}
             </Container>
         </ProjectItem>
     );
